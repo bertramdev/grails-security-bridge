@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+    <head>
+        <title>Security-Bridge Plugin 0.1.0</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
+        <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8" />
+    <script type="text/javascript">
+function addJsClass(el) {
+    var classes = document.body.className.split(" ");
+    classes.push("js");
+    document.body.className = classes.join(" ");
+}
+    </script>
+    </head>
+
+    <body class="body" onload="addJsClass();">
+        <div id="navigation">
+            <ul>
+                <li>
+                    <div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)">
+                        <a href="../guide/index.html" class="button">Table of contents</a>
+                        <div id="nav-summary-childs" style="display:none;">
+                            
+                            <div class="toc-item" style="margin-left:0"><a href="#introduction"><strong>1</strong><span>Introduction</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0"><a href="#configuration"><strong>2</strong><span>Configuration</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0"><a href="#usage"><strong>3</strong><span>Usage</span></a></div>
+                            
+                        </div>
+                    </div>
+                </li>
+                <li class="separator selected">
+                    <a id="ref-button" onclick="localToggle(); return false;" href="#">Quick Reference</a>
+                </li>
+            </ul>
+        </div>
+        <div id="header">
+            <div class="images clearfix">
+                
+                
+            </div>
+            <p>Defines a standard corss-plugin security bridge implementation for better decoupling of authentication in plugin heavy applications.</p>
+        </div>
+
+
+        <table id="colset" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td id="col1">
+                    <div id="main" class="corner-all">
+
+                        <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
+
+                        <div class="project">
+                            <h1>Security-Bridge Plugin - Reference Documentation</h1>
+                            <p><strong>Authors:</strong> David Estes</p>
+                            <p><strong>Version:</strong> 0.1.0</p>
+                            
+                        </div>
+
+                        
+                        <div id="table-of-content">
+                            <h2>Table of Contents</h2>
+                            
+                            <div class="toc-item" style="margin-left:0px"><a href="#introduction"><strong>1</strong><span>Introduction</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0px"><a href="#configuration"><strong>2</strong><span>Configuration</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0px"><a href="#usage"><strong>3</strong><span>Usage</span></a></div>
+                            
+                            <div style="clear:both" ></div>
+                        </div>
+                        
+                        
+
+<h1 id="introduction">1 Introduction</h1>
+The Grails Security Bridge plugin is used for providing a decoupled, cross-plugin security interface. This allows you to keep the majority of authentication logic in one plugin, while other plugins can reference a public API interface to retrieve the information needed.<p class="paragraph"/>This guide documents how to configure and setup a <code>sharedSecurityBridge</code> for use throughout other plugins.
+
+
+
+<h1 id="configuration">2 Configuration</h1>
+The Security-Bridge is kept relatively simple so as to not overcreep on scope. All that needs to be done is to define a security bridge and register this as a spring bean.<p class="paragraph"/>The interface is as follows:<p class="paragraph"/><div class="code"><pre><span class="java&#45;keyword">package</span> org.grails.plugin.securitybridge<p class="paragraph"/><span class="java&#45;keyword">interface</span> SecurityBridge &#123;<p class="paragraph"/>  /&#42;&#42;
+   &#42; Returns the current user object <span class="java&#45;keyword">if</span> they are logged in
+   &#42; @<span class="java&#45;keyword">return</span> the implementation's user object or <span class="java&#45;keyword">null</span> <span class="java&#45;keyword">if</span> nobody is logged in
+   &#42;/
+  def getCurrentUser()<p class="paragraph"/>  /&#42;&#42;
+   &#42; Get the user Identifier.
+   &#42; @<span class="java&#45;keyword">return</span> the user identity or <span class="java&#45;keyword">null</span> <span class="java&#45;keyword">if</span> nobody is logged in
+   &#42;/
+  def getUserIdentity()<p class="paragraph"/>  /&#42;&#42;
+   &#42; Returns the current account object of the logged in user
+   &#42; @<span class="java&#45;keyword">return</span> the implementation's account (<span class="java&#45;keyword">for</span> basic auth can just be the user object) object or <span class="java&#45;keyword">null</span> <span class="java&#45;keyword">if</span> nobody is logged in
+   &#42;/
+  def getCurrentAccount()<p class="paragraph"/>  /&#42;&#42;
+   &#42; Returns the current users account identity. (Useful <span class="java&#45;keyword">if</span> multiple users are tied to one account)
+   &#42; @<span class="java&#45;keyword">return</span> the account name or identity, <span class="java&#45;keyword">null</span> <span class="java&#45;keyword">if</span> nobody is logged in.
+   &#42;/
+  def getAccountIdentity()<p class="paragraph"/>  /&#42;&#42;
+   &#42; Return the current users display name.
+   &#42;/
+  def getCurrentUserDisplayName()<p class="paragraph"/>  /&#42;&#42;
+   &#42; Check <span class="java&#45;keyword">if</span> the user is currently logged in.
+   &#42;/
+  <span class="java&#45;object">boolean</span> isLoggedIn()<p class="paragraph"/>  /&#42;&#42;
+   &#42; Check <span class="java&#45;keyword">if</span> the currently logged in user is authorized to perform an action on the passed object
+   &#42; @param object The object with which we are dealing with.
+   &#42; @param action The action you would like to perform
+   &#42;/
+  <span class="java&#45;object">boolean</span> isAuthorized(object, action)<p class="paragraph"/>  /&#42;&#42;
+   &#42; Check <span class="java&#45;keyword">if</span> the currently logged in user has the specified role
+   &#42; @param role
+   &#42;/
+  <span class="java&#45;object">boolean</span> hasRole(role)<p class="paragraph"/>  /&#42;&#42;
+   &#42; Store the request location <span class="java&#45;keyword">for</span> the security service to redirect to upon login success
+   &#42; @param request The request object
+   &#42;/
+  def storeLocation(request)<p class="paragraph"/>  /&#42;&#42;
+   &#42; Execute code masquerading as the specified user, <span class="java&#45;keyword">for</span> the duration of the Closure block
+   &#42; @<span class="java&#45;keyword">return</span> Whatever the closure returns
+   &#42;/
+  def withUser(identity, Closure code)<p class="paragraph"/>  /&#42;&#42;
+   &#42; Create a link to the specified security action
+   &#42; @param action One of <span class="java&#45;quote">"login"</span>, <span class="java&#45;quote">"logout"</span>, <span class="java&#45;quote">"signup"</span>
+   &#42; @<span class="java&#45;keyword">return</span> Must <span class="java&#45;keyword">return</span> a Map of arguments to pass to g:link to create the link
+   &#42;/
+  Map createLink(<span class="java&#45;object">String</span> action)
+&#125;</pre></div><p class="paragraph"/>Simply implementing a class that defines all these methods will create a legitimate securityBridge. Next we need to register this bridge with spring. This can be done in your application's <code>resources.groovy</code> file or in a plugins <code>doWithSpring</code> method.<p class="paragraph"/><div class="code"><pre>sharedSecurityBridge(com.mycompany.MySecurityBridge) &#123;
+  //Add any other spring injected references you may need
+  springSecurityService = ref('springSecurityService')
+&#125;</pre></div>
+
+
+
+<h1 id="usage">3 Usage</h1>
+Now that the security bridge is configured, The spring security bridge can be used anywhere throughout your app by simply defining the <code>sharedSecurityService</code>.<p class="paragraph"/>The <code>sharedSecurityService</code> provides access to all methods created in the bridge, as well as some additional methods to make things a bit easier.
+<ul class="star">
+<li><code>getCurrentUser()</code></li>
+<li><code>getCurrentAccount()</code></li>
+<li><code>getUserIdentity()</code></li>
+<li><code>getAccountIdentity()</code></li>
+<li><code>getCurrentUserDisplayName()</code></li>
+<li><code>isAuthorized(object,action)</code></li>
+<li><code>isLoggedIn()</code></li>
+<li><code>hasAnyRole(role)</code></li>
+<li><code>ifAuthorized(object,action,Closure code)</code></li>
+</ul><p class="paragraph"/>For More methods please take a look at your SecurityBridge interface.<p class="paragraph"/>
+
+                    </div>
+                </td>
+                <td id="col2">
+            <div class="local clearfix">
+                <div class="local-title">
+                    <a href="../guide/index.html" target="mainFrame">Quick Reference</a>
+                    <span class="toggle">(<a href="#" onclick="localToggle(); return false;">hide</a>)</span>
+                </div>
+                <div class="menu">
+                    
+                </div>
+            </div>
+        </td>
+            </tr>
+        </table>
+
+        <div id="footer">
+            
+            
+        </div>
+
+
+
+<script type="text/javascript" src="../js/docs.js"></script>
+
+    </body>
+</html>
