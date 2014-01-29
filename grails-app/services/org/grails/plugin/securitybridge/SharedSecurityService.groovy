@@ -58,7 +58,7 @@ class SharedSecurityService implements SecurityBridge {
   /**
 	 * Check if the user is currently logged in.
 	 */
-  def isLoggedIn() {
+  boolean isLoggedIn() {
   	securityBridge.isLoggedIn
   }
 
@@ -101,7 +101,7 @@ class SharedSecurityService implements SecurityBridge {
    * @return Must return a Map of arguments to pass to g:link to create the link
    */
   Map createLink(String action) {
-    securityBridge(failOnError: true).createLink(action)
+    getSecurityBridge(failOnError: true).createLink(action)
   }
 
   def ifAuthorized(object, action, Closure code) {

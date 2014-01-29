@@ -1,0 +1,16 @@
+Now that the security bridge is configured, The spring security bridge can be used anywhere throughout your app by simply defining the @sharedSecurityService@.
+
+The @sharedSecurityService@ provides access to all methods created in the bridge, as well as some additional methods to make things a bit easier.
+
+* @getCurrentUser()@
+* @getCurrentAccount()@
+* @getUserIdentity()@
+* @getAccountIdentity()@
+* @getCurrentUserDisplayName()@
+* @isAuthorized(object,action)@
+* @isLoggedIn()@
+* @hasAnyRole(role)@
+* @ifAuthorized(object,action,Closure code)@
+
+For More methods please take a look at your SecurityBridge interface.
+
