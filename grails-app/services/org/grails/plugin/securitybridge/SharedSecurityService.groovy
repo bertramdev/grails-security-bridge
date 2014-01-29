@@ -1,6 +1,7 @@
 package org.grails.plugin.securitybridge
 
 class SharedSecurityService implements SecurityBridge {
+  static transactional = false
 	def sharedSecurityBridge
 
 	boolean hasProvider() {
