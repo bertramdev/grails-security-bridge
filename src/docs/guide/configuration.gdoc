@@ -7,66 +7,66 @@ package org.grails.plugin.securitybridge
 
 interface SecurityBridge {
 
-	/**
-	 * Returns the current user object if they are logged in
-	 * @return the implementation's user object or null if nobody is logged in
-	 */
-	def getCurrentUser()
+  /**
+   * Returns the current user object if they are logged in
+   * @return the implementation's user object or null if nobody is logged in
+   */
+  def getCurrentUser()
 
-	/**
-	 * Get the user Identifier.
-	 * @return the user identity or null if nobody is logged in
-	 */
-	def getUserIdentity()
+  /**
+   * Get the user Identifier.
+   * @return the user identity or null if nobody is logged in
+   */
+  def getUserIdentity()
 
-	/**
-	 * Returns the current account object of the logged in user
-	 * @return the implementation's account (for basic auth can just be the user object) object or null if nobody is logged in
-	 */
-	def getCurrentAccount()
+  /**
+   * Returns the current account object of the logged in user
+   * @return the implementation's account (for basic auth can just be the user object) object or null if nobody is logged in
+   */
+  def getCurrentAccount()
 
-	/**
-	 * Returns the current users account identity. (Useful if multiple users are tied to one account)
-	 * @return the account name or identity, null if nobody is logged in.
-	 */
-	def getAccountIdentity()
+  /**
+   * Returns the current users account identity. (Useful if multiple users are tied to one account)
+   * @return the account name or identity, null if nobody is logged in.
+   */
+  def getAccountIdentity()
 
-	/**
-	 * Return the current users display name.
-	 */
-	def getCurrentUserDisplayName()
+  /**
+   * Return the current users display name.
+   */
+  def getCurrentUserDisplayName()
 
-	/**
-	 * Check if the user is currently logged in.
-	 */
-	boolean isLoggedIn()
+  /**
+   * Check if the user is currently logged in.
+   */
+  boolean isLoggedIn()
 
-	/**
-	 * Check if the currently logged in user is authorized to perform an action on the passed object
-	 * @param object The object with which we are dealing with.
-	 * @param action The action you would like to perform
-	 */
-	boolean isAuthorized(object, action)
+  /**
+   * Check if the currently logged in user is authorized to perform an action on the passed object
+   * @param object The object with which we are dealing with.
+   * @param action The action you would like to perform
+   */
+  boolean isAuthorized(object, action)
 
-	/**
+  /**
    * Check if the currently logged in user has the specified role
    * @param role
    */
-	boolean hasRole(role)
+  boolean hasRole(role)
 
-	/**
-	 * Store the request location for the security service to redirect to upon login success
-	 * @param request The request object
-	 */
-	def storeLocation(request)
+  /**
+   * Store the request location for the security service to redirect to upon login success
+   * @param request The request object
+   */
+  def storeLocation(request)
 
-	/**
-	 * Execute code masquerading as the specified user, for the duration of the Closure block
-	 * @return Whatever the closure returns
-	 */
-	def withUser(identity, Closure code)
+  /**
+   * Execute code masquerading as the specified user, for the duration of the Closure block
+   * @return Whatever the closure returns
+   */
+  def withUser(identity, Closure code)
 
-	/**
+  /**
    * Create a link to the specified security action
    * @param action One of "login", "logout", "signup"
    * @return Must return a Map of arguments to pass to g:link to create the link
@@ -79,7 +79,7 @@ Simply implementing a class that defines all these methods will create a legitim
 
 {code}
 sharedSecurityBridge(com.mycompany.MySecurityBridge) {
-	//Add any other spring injected references you may need
+  //Add any other spring injected references you may need
   springSecurityService = ref('springSecurityService')
 }
 {code}
