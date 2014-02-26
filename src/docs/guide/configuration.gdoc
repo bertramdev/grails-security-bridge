@@ -55,6 +55,22 @@ interface SecurityBridge {
   boolean hasRole(role)
 
   /**
+   * Check if the currently logged in user has the specified permission
+   * in any of his/her assigned roles.
+   * @param permission the name of the permission to check
+   * @param opts depending on then permissions model, this can be used to add
+   * configurability to permission.
+   */
+  boolean hasPermission(permission, opts)
+
+  /**
+   * Check if the currently logged in user has the specified permission
+   * in any of his/her assigned roles.
+   * @param permission the name of the permission to check
+   */
+  boolean hasPermission(permission)
+
+  /**
    * Store the request location for the security service to redirect to upon login success
    * @param request The request object
    */
