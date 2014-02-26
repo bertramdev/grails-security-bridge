@@ -27,7 +27,7 @@ class SharedSecurityService implements SecurityBridge {
    * Execute the closure with the user and account object based on the passed id
    */
   def withUser(identity, Closure code) {
-      getSecurityBridge(failOnError: true).withUser(identity, code)
+    getSecurityBridge(failOnError: true).withUser(identity, code)
   }
 
 
@@ -87,6 +87,13 @@ class SharedSecurityService implements SecurityBridge {
 	 	securityBridge?.isAuthorized(object, action)
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+  boolean hasPermission(permission, opts=null) {
+    securityBridge?.hasPermission(permission, opts)
+  }
+
   /**
    * Check if the currently logged in user has the specified role
    * @param role
@@ -98,7 +105,7 @@ class SharedSecurityService implements SecurityBridge {
   boolean hasAnyRole(roles) {
     roles = roles instanceof Collection ? roles : [roles]
     roles.any { role ->
-        getSecurityBridge()?.hasRole(role)
+      getSecurityBridge()?.hasRole(role)
     }
   }
 
