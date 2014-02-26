@@ -2,7 +2,7 @@
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
-        <title>Security-Bridge Plugin 0.5.0</title>
+        <title>Security-Bridge Plugin 0.5.1</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
         <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8" />
@@ -56,7 +56,7 @@ function addJsClass(el) {
                         <div class="project">
                             <h1>Security-Bridge Plugin - Reference Documentation</h1>
                             <p><strong>Authors:</strong> David Estes</p>
-                            <p><strong>Version:</strong> 0.5.0</p>
+                            <p><strong>Version:</strong> 0.5.1</p>
                             
                         </div>
 
@@ -138,7 +138,7 @@ The Security-Bridge is kept relatively simple so as to not overcreep on scope. A
    &#42; @<span class="java&#45;keyword">return</span> Must <span class="java&#45;keyword">return</span> a Map of arguments to pass to g:link to create the link
    &#42;/
   Map createLink(<span class="java&#45;object">String</span> action)
-&#125;</pre></div><p class="paragraph"/>Simply implementing a class that defines all these methods will create a legitimate securityBridge. Next we need to register this bridge with spring. This can be done in your application's <code>resources.groovy</code> file or in a plugins <code>doWithSpring</code> method.<p class="paragraph"/><div class="code"><pre>sharedSecurityBridge(com.mycompany.MySecurityBridge) &#123;
+&#125;</pre></div><p class="paragraph"/>It is best to create a security bridge that extends the <code>AbstractSecurityBridge</code> class which default implements some of these methods so you do not necessarily have to implement all of them.<p class="paragraph"/>Simply implementing a class that defines all these methods will create a legitimate securityBridge. Next we need to register this bridge with spring. This can be done in your application's <code>resources.groovy</code> file or in a plugins <code>doWithSpring</code> method.<p class="paragraph"/><div class="code"><pre>sharedSecurityBridge(com.mycompany.MySecurityBridge) &#123;
   //Add any other spring injected references you may need
   springSecurityService = ref('springSecurityService')
 &#125;</pre></div>
