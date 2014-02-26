@@ -91,6 +91,8 @@ interface SecurityBridge {
 }
 {code}
 
+It is best to create a security bridge that extends the @AbstractSecurityBridge@ class which default implements some of these methods so you do not necessarily have to implement all of them.
+
 Simply implementing a class that defines all these methods will create a legitimate securityBridge. Next we need to register this bridge with spring. This can be done in your application's @resources.groovy@ file or in a plugins @doWithSpring@ method.
 
 {code}
