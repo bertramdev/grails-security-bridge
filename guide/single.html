@@ -2,7 +2,7 @@
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
-        <title>Security-Bridge Plugin 0.1.0</title>
+        <title>Security-Bridge Plugin 0.5.0</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
         <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8" />
@@ -56,7 +56,7 @@ function addJsClass(el) {
                         <div class="project">
                             <h1>Security-Bridge Plugin - Reference Documentation</h1>
                             <p><strong>Authors:</strong> David Estes</p>
-                            <p><strong>Version:</strong> 0.1.0</p>
+                            <p><strong>Version:</strong> 0.5.0</p>
                             
                         </div>
 
@@ -113,6 +113,18 @@ The Security-Bridge is kept relatively simple so as to not overcreep on scope. A
    &#42; @param role
    &#42;/
   <span class="java&#45;object">boolean</span> hasRole(role)<p class="paragraph"/>  /&#42;&#42;
+   &#42; Check <span class="java&#45;keyword">if</span> the currently logged in user has the specified permission
+   &#42; in any of his/her assigned roles.
+   &#42; @param permission the name of the permission to check
+   &#42; @param opts depending on then permissions model, <span class="java&#45;keyword">this</span> can be used to add
+   &#42; configurability to permission.
+   &#42;/
+  <span class="java&#45;object">boolean</span> hasPermission(permission, opts)<p class="paragraph"/>  /&#42;&#42;
+   &#42; Check <span class="java&#45;keyword">if</span> the currently logged in user has the specified permission
+   &#42; in any of his/her assigned roles.
+   &#42; @param permission the name of the permission to check
+   &#42;/
+  <span class="java&#45;object">boolean</span> hasPermission(permission)<p class="paragraph"/>  /&#42;&#42;
    &#42; Store the request location <span class="java&#45;keyword">for</span> the security service to redirect to upon login success
    &#42; @param request The request object
    &#42;/
