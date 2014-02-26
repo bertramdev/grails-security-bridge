@@ -24,6 +24,9 @@ class SecurityBridgeGrailsPlugin {
     def authorEmail = "destes@bcap.com"
     def description = 'Defines a standard corss-plugin security bridge implementation for better decoupling of authentication in plugin heavy applications.'
 
+    def developers = [
+        [name: 'Jeremy Michael Crosbie', email: 'jcrosbie@bcap.com']
+    ]
     def documentation   = "http://bertramdev.github.io/grails-security-bridge"
     def license = "APACHE"
     def organization = [name: "Bertram Labs", url: "http://www.bertramlabs.com/"]
