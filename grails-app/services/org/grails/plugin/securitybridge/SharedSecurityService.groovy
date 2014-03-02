@@ -75,7 +75,7 @@ class SharedSecurityService implements SecurityBridge {
 	 * Check if the user is currently logged in.
 	 */
   boolean isLoggedIn() {
-  	securityBridge.isLoggedIn
+  	securityBridge.isLoggedIn()
   }
 
   /**
