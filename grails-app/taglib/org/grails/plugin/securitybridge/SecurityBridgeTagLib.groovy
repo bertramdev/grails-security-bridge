@@ -75,6 +75,6 @@ class SecurityBridgeTagLib {
 		def controller = attrs.remove('controller') ?: controllerName
 		def action = attrs.remove('action') ?: actionName
 
-		sharedSecurityService.isAuthorized(grailsApplication.getArtefactByLogicalPropertyName('controller', controller), action)
+		sharedSecurityService.isAuthorized(grailsApplication.getArtefactByLogicalPropertyName('Controller', controller), action)
 	}
 }
