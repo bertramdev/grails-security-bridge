@@ -14,3 +14,50 @@ The @sharedSecurityService@ provides access to all methods created in the bridge
 
 For More methods please take a look at your SecurityBridge interface.
 
+h3. Secure Annotation
+
+The grails security bridge provides an annotation @org.grails.plugin.securitybridge.Secure@ This annotation can be used on controllers or controller methods to restrict access.
+
+{code}
+
+class HomeController {
+
+
+	def index() {
+
+	}
+
+	@Secure(["AUTHORIZED"])
+	def settings() {
+
+	}
+}
+{code}
+
+You can also apply to the entire controller: 
+
+{code}
+@Secure(["AUTHORIZED","ADMIN"])
+class HomeController {
+
+
+	def index() {
+
+	}
+
+	def settings() {
+
+	}
+}
+{code}
+
+h3. TagLibs
+
+This plugin also provides some helpful taglibs that you can use within your application.
+
+
+* security:ifLoggedIn
+* security:ifNotLoggedIn
+* security:ifAuthorized - Takes [controller: 'value', action:'value']
+* security:ifNotAuthorized - Takes [controller: 'value', action:'value']
+* security:createLink - Shortcut for creating login/settings/logout links as mapped in security service.
