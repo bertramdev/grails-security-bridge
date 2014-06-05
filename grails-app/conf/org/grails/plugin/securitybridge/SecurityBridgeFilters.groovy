@@ -1,6 +1,6 @@
 package org.grails.plugin.securitybridge
 
-class SecurityFilters {
+class SecurityBridgeFilters {
 
 	def grailsApplication
 	def sharedSecurityService
