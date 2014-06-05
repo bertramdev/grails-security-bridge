@@ -2,7 +2,7 @@
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
-        <title>Security-Bridge Plugin 0.5.1</title>
+        <title>Security-Bridge Plugin 0.6.1</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
         <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8" />
@@ -56,7 +56,7 @@ function addJsClass(el) {
                         <div class="project">
                             <h1>Security-Bridge Plugin - Reference Documentation</h1>
                             <p><strong>Authors:</strong> David Estes</p>
-                            <p><strong>Version:</strong> 0.5.1</p>
+                            <p><strong>Version:</strong> 0.6.1</p>
                             
                         </div>
 
@@ -157,7 +157,20 @@ Now that the security bridge is configured, The spring security bridge can be us
 <li><code>isLoggedIn()</code></li>
 <li><code>hasAnyRole(role)</code></li>
 <li><code>ifAuthorized(object,action,Closure code)</code></li>
-</ul><p class="paragraph"/>For More methods please take a look at your SecurityBridge interface.<p class="paragraph"/>
+</ul><p class="paragraph"/>For More methods please take a look at your SecurityBridge interface.<p class="paragraph"/><h3>Secure Annotation</h3><p class="paragraph"/>The grails security bridge provides an annotation <code>org.grails.plugin.securitybridge.Secure</code> This annotation can be used on controllers or controller methods to restrict access.<p class="paragraph"/><div class="code"><pre>class HomeController &#123;<p class="paragraph"/>
+	def index() &#123;<p class="paragraph"/>	&#125;<p class="paragraph"/>	@Secure(&#91;<span class="java&#45;quote">"AUTHORIZED"</span>&#93;)
+	def settings() &#123;<p class="paragraph"/>	&#125;
+&#125;</pre></div><p class="paragraph"/>You can also apply to the entire controller:<p class="paragraph"/><div class="code"><pre>@Secure(&#91;<span class="java&#45;quote">"AUTHORIZED"</span>,<span class="java&#45;quote">"ADMIN"</span>&#93;)
+class HomeController &#123;<p class="paragraph"/>
+	def index() &#123;<p class="paragraph"/>	&#125;<p class="paragraph"/>	def settings() &#123;<p class="paragraph"/>	&#125;
+&#125;</pre></div><p class="paragraph"/><h3>TagLibs</h3><p class="paragraph"/>This plugin also provides some helpful taglibs that you can use within your application.
+<ul class="star">
+<li>security:ifLoggedIn</li>
+<li>security:ifNotLoggedIn</li>
+<li>security:ifAuthorized - Takes controller: 'value', action:'value'</li>
+<li>security:ifNotAuthorized - Takes controller: 'value', action:'value'</li>
+<li>security:createLink - Shortcut for creating login/settings/logout links as mapped in security service.</li>
+</ul><p class="paragraph"/>
 
                     </div>
                 </td>
