@@ -26,6 +26,21 @@ class SecurityBridgeTagLib {
 	}
 
 	/**
+	 * Outputs the value of the property on the current user.  No checking is performed
+	 * to determine if the property given is valid or not.
+	 * @attr property REQUIRED the name of the property to retrieve on the current user.
+	 * @throws NullPointerException if the 'property' property is not provided.
+	 */
+	def currentUserProperty = {attrs ->
+		def prop = attrs.remove('property')
+		if(!prop) {
+			throw new NullPointerException("'property' attribute missing")
+		}
+
+		out << sharedSecurityService.currentUser."${prop}"
+	}
+
+	/**
 	 * Executes the body of the tag is the user is authorized to access a
 	 * controller or action (optional)
 	 * @attr controller OPTIONAL the name of the controller to check.  If not given
