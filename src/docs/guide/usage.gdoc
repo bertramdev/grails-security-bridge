@@ -61,3 +61,4 @@ This plugin also provides some helpful taglibs that you can use within your appl
 * security:ifAuthorized - Takes [controller: 'value', action:'value']
 * security:ifNotAuthorized - Takes [controller: 'value', action:'value']
 * security:createLink - Shortcut for creating login/settings/logout links as mapped in security service.
+* security:currentUserProperty - Takes [property: 'value'] and returns the value of that property on the current user, e.g. for getting the current user name.
