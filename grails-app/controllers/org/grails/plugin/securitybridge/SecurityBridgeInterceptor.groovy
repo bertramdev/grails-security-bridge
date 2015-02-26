@@ -6,6 +6,7 @@ class SecurityBridgeInterceptor {
 
 	GrailsApplication grailsApplication
 	SharedSecurityService sharedSecurityService
+	int order = HIGHEST_PRECEDENCE
 
 	SecurityBridgeInterceptor() {
 		matchAll()
@@ -37,7 +38,7 @@ class SecurityBridgeInterceptor {
 			redirect(sharedSecurityService.createLink('login'))
 			return false
 		}
-		
+
 		return true
 	}
 
