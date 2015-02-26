@@ -68,6 +68,22 @@ dependencies {
   console "org.grails:grails-console"
 }
 
+
+bintray {
+    if(project.hasProperty('bintrayUser')) {
+        user = bintrayUser
+        key = bintrayKey
+    }
+
+    publications = ['maven']
+    pkg {
+        repo = 'grails3-plugins'
+        userOrg = 'bertramlabs'
+        name = 'security-bridge'
+        licenses = ['Apache-2.0']
+    }
+}
+
 eclipse {
     classpath {
         plusConfigurations += [configurations.provided]
