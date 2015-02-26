@@ -1,7 +1,5 @@
 package org.grails.plugin.securitybridge
 
-import org.codehaus.groovy.grails.plugins.web.taglib.ApplicationTagLib
-
 class SecurityBridgeTagLib {
 	static namespace = 'security'
 
@@ -79,8 +77,7 @@ class SecurityBridgeTagLib {
 		if(!action) {
 			throw new NullPointerException("'action' attribute missing")
 		}
-		def appTagLib = new ApplicationTagLib()
-		out << "<a href='" << appTagLib.createLink(sharedSecurityService.createLink(action)) << "'" <<
+		out << "<a href='" << g.createLink(sharedSecurityService.createLink(action)) << "'" <<
 			(attrs.collect {k,v -> "${k}='${v}'"}.join(' ')) << '>'
 		out << body()
 		out << '</a>'
