@@ -8,7 +8,7 @@ class SecurityBridgeTagLib {
 	def sharedSecurityService
 
 	/**
-	 * Executes the body of the tag is the user is logged in.
+	 * Executes the body of the tag if the user is logged in.
 	 */
 	def ifLoggedIn = {attrs, body ->
 		if(sharedSecurityService.isLoggedIn()) {
