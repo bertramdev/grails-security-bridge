@@ -6,7 +6,7 @@ class SecurityBridgeTagLib {
 	def sharedSecurityService
 
 	/**
-	 * Executes the body of the tag is the user is logged in.
+	 * Executes the body of the tag if the user is logged in.
 	 */
 	def ifLoggedIn = {attrs, body ->
 		if(sharedSecurityService.isLoggedIn()) {
@@ -45,6 +45,8 @@ class SecurityBridgeTagLib {
 	 * then the current controller is used.
 	 * @attr action OPTIONAL the name of the action to check.  If not given the
 	 * current action is used.
+	 * @attr namespace OPTIONAL the namespace of the controller to check. If not given
+	 * then the first controller returned by getArtefactByLogicalPropertyName is used.
 	 */
 	def ifAuthorized = {attrs, body ->
 		if(checkAuthorized(attrs)) {
@@ -86,7 +88,19 @@ class SecurityBridgeTagLib {
 	private checkAuthorized(attrs) {
 		def controller = attrs.remove('controller') ?: controllerName
 		def action = attrs.remove('action') ?: actionName
+		def namespace = attrs.remove('namespace') ?: null
 
-		sharedSecurityService.isAuthorized(grailsApplication.getArtefactByLogicalPropertyName('Controller', controller), action)
+		def controllerToCheck
+		if(namespace) {
+			controllerToCheck = grailsApplication.getArtefacts('Controller').find {
+				if(it.logicalPropertyName == controller && it.namespace && it.namespace == namespace) {
+					return true
+				}
+			}
+		} else {
+			controllerToCheck = grailsApplication.getArtefactByLogicalPropertyName('Controller', controller)
+		}
+
+		sharedSecurityService.isAuthorized(controllerToCheck, action)
 	}
 }
