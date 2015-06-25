@@ -95,9 +95,8 @@ class SecurityBridgeTagLib {
 
 		def controllerToCheck
 		if(namespace) {
-			grailsApplication.getArtefacts('Controller').find {
+			controllerToCheck = grailsApplication.getArtefacts('Controller').find {
 				if(it.logicalPropertyName == controller && it.namespace && it.namespace == namespace) {
-					controllerToCheck = it
 					return true
 				}
 			}
