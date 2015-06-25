@@ -22,7 +22,7 @@ class SecurityBridgeGrailsPlugin {
     def title = "Security Bridge Plugin" // Headline display name of the plugin
     def author = "David Estes"
     def authorEmail = "destes@bcap.com"
-    def description = 'Defines a standard corss-plugin security bridge implementation for better decoupling of authentication in plugin heavy applications.'
+    def description = 'Defines a standard cross-plugin security bridge implementation for better decoupling of authentication in plugin heavy applications.'
 
     def developers = [
         [name: 'Jeremy Michael Crosbie', email: 'jcrosbie@bcap.com']

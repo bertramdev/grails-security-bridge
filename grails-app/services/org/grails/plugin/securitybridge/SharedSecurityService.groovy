@@ -134,7 +134,7 @@ class SharedSecurityService implements SecurityBridge {
 
 	SecurityBridge getSecurityBridge(options=[:]) {
 		if (!sharedSecurityBridge) {
-			def message = "An attempt was made to use the sharedSecurityBridge, but none has been defined. Please refer to the grails security btidge plugin docs for information on how to define a bridge."
+			def message = "An attempt was made to use the sharedSecurityBridge, but none has been defined. Please refer to the grails security bridge plugin docs for information on how to define a bridge."
 			if(options.failOnError) {
 				throw new IllegalArgumentException(message)
 			} else {
