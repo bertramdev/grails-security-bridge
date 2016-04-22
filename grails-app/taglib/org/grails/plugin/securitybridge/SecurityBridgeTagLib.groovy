@@ -91,14 +91,10 @@ class SecurityBridgeTagLib {
 		def namespace = attrs.remove('namespace') ?: null
 
 		def controllerToCheck
-		if(namespace) {
-			controllerToCheck = grailsApplication.getArtefacts('Controller').find {
-				if(it.logicalPropertyName == controller && it.namespace && it.namespace == namespace) {
-					return true
-				}
+		controllerToCheck = grailsApplication.getArtefacts('Controller').find {
+			if(it.logicalPropertyName == controller && it.namespace == namespace) {
+				return true
 			}
-		} else {
-			controllerToCheck = grailsApplication.getArtefactByLogicalPropertyName('Controller', controller)
 		}
 
 		sharedSecurityService.isAuthorized(controllerToCheck, action)

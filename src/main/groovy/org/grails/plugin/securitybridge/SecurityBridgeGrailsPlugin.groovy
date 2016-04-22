@@ -19,9 +19,8 @@ import grails.plugins.*
 
 class SecurityBridgeGrailsPlugin extends Plugin {
     // the plugin version
-    def version = "1.0.0"
     // the version or versions of Grails the plugin is designed for
-    def grailsVersion   = "3.0.0.M2 > *"
+    def grailsVersion   = "3.1.0 > *"
 
     def title = "Security Bridge Plugin" // Headline display name of the plugin
     def author = "David Estes"
@@ -29,7 +28,8 @@ class SecurityBridgeGrailsPlugin extends Plugin {
     def description = 'Defines a standard cross-plugin security bridge implementation for better decoupling of authentication in plugin heavy applications.'
 
     def developers = [
-        [name: 'Jeremy Michael Crosbie', email: 'jcrosbie@bcap.com', name: 'William Chu', email: 'wchu@bcap.com']
+        [name: 'Jeremy Michael Crosbie', email: 'jcrosbie@bcap.com'],
+        [name: 'William Chu', email: 'wchu@bcap.com']
     ]
     def documentation   = "http://bertramdev.github.io/grails-security-bridge"
     def license = "APACHE"

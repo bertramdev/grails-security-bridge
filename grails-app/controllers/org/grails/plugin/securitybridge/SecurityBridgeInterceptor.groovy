@@ -1,6 +1,7 @@
 package org.grails.plugin.securitybridge
 
 import grails.core.GrailsApplication
+import org.grails.web.util.GrailsApplicationAttributes
 
 class SecurityBridgeInterceptor {
 
@@ -13,8 +14,11 @@ class SecurityBridgeInterceptor {
 	}
 
 	boolean before() { 
-		def controllerClass = grailsApplication.getArtefactByLogicalPropertyName("Controller", controllerName)
+		def controllerClass = request.getAttribute(GrailsApplicationAttributes.GRAILS_CONTROLLER_CLASS)
 
+		if(!controller) {
+				return true
+		}
 		def action
 		if(controllerClass) {
 			action = controllerClass.clazz.declaredMethods.find { it.name == actionName }
