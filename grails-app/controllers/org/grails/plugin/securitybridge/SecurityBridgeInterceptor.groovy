@@ -16,9 +16,6 @@ class SecurityBridgeInterceptor {
 	boolean before() { 
 		def controllerClass = request.getAttribute(GrailsApplicationAttributes.GRAILS_CONTROLLER_CLASS)
 
-		if(!controller) {
-				return true
-		}
 		def action
 		if(controllerClass) {
 			action = controllerClass.clazz.declaredMethods.find { it.name == actionName }

@@ -8,31 +8,28 @@ buildscript {
     }
     dependencies {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
-        classpath 'com.bertramlabs.plugins:asset-pipeline-gradle:2.1.1'
     }
 }
 
 plugins {
     id "io.spring.dependency-management" version "0.3.1.RELEASE"
-    id "com.jfrog.bintray" version "1.1"
+    id "com.jfrog.bintray" version "1.6"
 }
 
-grailsVersion=3.0.0.M2
-gradleWrapperVersion=2.3
-
-version "0.1-SNAPSHOT"
-group "org.grails.plugins"
+version "3.0.0"
+group "com.bertramlabs.plugins"
 
 apply plugin: "spring-boot"
-apply plugin: "asset-pipeline"
 apply plugin: "org.grails.grails-plugin"
 apply plugin: "org.grails.grails-gsp"
 apply plugin: 'maven-publish'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
+apply plugin: "org.grails.grails-plugin"
+apply plugin: "org.grails.grails-plugin-publish"
 // Used for publishing to central repository, remove if not needed
-apply from:'https://raw.githubusercontent.com/grails/grails-profile-repository/master/profiles/plugin/templates/grailsCentralPublishing.gradle'
-apply from:'https://raw.githubusercontent.com/grails/grails-profile-repository/master/profiles/plugin/templates/bintrayPublishing.gradle'
+// apply from:'https://raw.githubusercontent.com/grails/grails-profile-repository/master/profiles/plugin/templates/grailsCentralPublishing.gradle'
+// apply from:'https://raw.githubusercontent.com/grails/grails-profile-repository/master/profiles/plugin/templates/bintrayPublishing.gradle'
 
 ext {
   grailsVersion = project.grailsVersion
@@ -71,20 +68,30 @@ dependencies {
   console "org.grails:grails-console"
 }
 
-
 bintray {
-    if(project.hasProperty('bintrayUser')) {
-        user = bintrayUser
-        key = bintrayKey
-    }
-
     publications = ['maven']
     pkg {
+        githubRepo = 'bertramdev/grails-security-bridge' //Optional Github repository
+        githubReleaseNotesFile = 'README.md' //Optional Github readme file
         repo = 'grails3-plugins'
         userOrg = 'bertramlabs'
-        name = 'security-bridge'
         licenses = ['Apache-2.0']
     }
+}
+
+grailsPublish {
+  if(project.hasProperty('bintrayUser')) {
+    user = bintrayUser
+    key = bintrayKey
+  }
+  userOrg = 'bertramlabs'
+    githubSlug = 'bertramdev/grails-security-bridge'
+    license {
+        name = 'Apache-2.0'
+    }
+    title = "Security Bridge"
+    desc = "Defines a standard corss-plugin security bridge implementation for better decoupling of authentication in plugin heavy applications."
+    developers = [davidestes:"David Estes", jcrosbie: "Jeremy Michael Crosbie"]
 }
 
 eclipse {
