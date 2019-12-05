@@ -20,7 +20,7 @@ import grails.plugins.*
 class SecurityBridgeGrailsPlugin extends Plugin {
     // the plugin version
     // the version or versions of Grails the plugin is designed for
-    def grailsVersion   = "3.1.0 > *"
+    def grailsVersion   = "4.0.0 > *"
 
     def title = "Security Bridge Plugin" // Headline display name of the plugin
     def author = "David Estes"
