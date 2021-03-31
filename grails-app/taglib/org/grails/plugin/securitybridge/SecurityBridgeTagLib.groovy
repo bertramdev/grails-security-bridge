@@ -8,7 +8,7 @@ class SecurityBridgeTagLib {
 	/**
 	 * Executes the body of the tag if the user is logged in.
 	 */
-	def ifLoggedIn = {attrs, body ->
+	Closure ifLoggedIn = {attrs, body ->
 		if(sharedSecurityService.isLoggedIn()) {
 			out << body()
 		}
@@ -17,7 +17,7 @@ class SecurityBridgeTagLib {
 	/**
 	 * Executes the body of the tag is the user is not logged in.
 	 */
-	def ifNotLoggedIn = {attrs, body ->
+	Closure ifNotLoggedIn = {attrs, body ->
 		if(!sharedSecurityService.isLoggedIn()) {
 			out << body()
 		}
@@ -29,7 +29,7 @@ class SecurityBridgeTagLib {
 	 * @attr property REQUIRED the name of the property to retrieve on the current user.
 	 * @throws NullPointerException if the 'property' property is not provided.
 	 */
-	def currentUserProperty = {attrs ->
+	Closure currentUserProperty = {attrs ->
 		def prop = attrs.remove('property')
 		if(!prop) {
 			throw new NullPointerException("'property' attribute missing")
@@ -48,7 +48,7 @@ class SecurityBridgeTagLib {
 	 * @attr namespace OPTIONAL the namespace of the controller to check. If not given
 	 * then the first controller returned by getArtefactByLogicalPropertyName is used.
 	 */
-	def ifAuthorized = {attrs, body ->
+	Closure ifAuthorized = {attrs, body ->
 		if(checkAuthorized(attrs)) {
 			out << body()
 		}
@@ -62,7 +62,7 @@ class SecurityBridgeTagLib {
 	 * @attr action OPTIONAL the name of the action to check.  If not given the
 	 * current action is used.
 	 */
-	def ifNotAuthorized = {attrs, body ->
+	Closure ifNotAuthorized = {attrs, body ->
 		if(!checkAuthorized(attrs)) {
 			out << body()
 		}
@@ -74,7 +74,7 @@ class SecurityBridgeTagLib {
 	 * @attr action REQUIRED the action to use for creating the link.
 	 * @throws NullPointerException if the action attribute is missing.
 	 */
-	def createLink = {attrs, body ->
+	Closure createLink = {attrs, body ->
 		def action = attrs.remove('action')
 		if(!action) {
 			throw new NullPointerException("'action' attribute missing")
